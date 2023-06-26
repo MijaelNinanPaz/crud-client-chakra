@@ -30,7 +30,7 @@ export function useCrudFetch(src) {
             .then( data => dispatch(setProjects(data)))
             .catch( error => {
                 if(error.name === "AbortError") {
-                    console.log("Request cancelled");
+                    console.log("Request finished or cancelled");
                 } else {
                     setError(error)
                 }

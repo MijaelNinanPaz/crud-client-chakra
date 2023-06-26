@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import './googleMapDirection.css';
 
-const GoogleMapDirection = ({ setGeoJson }) => {
-    const [markerPosition, setMarkerPosition] = useState({ lat: 40.749933, lng: -73.98633 });
+const GoogleMapDirection = () => {
+    const [geoJson, setGeoJson] = useState({})
+    const [markerPosition, setMarkerPosition] = useState({ lat: -13.516765, lng: -71.978793 });
 
     useEffect(() => {
         const initMap = () => {
         const map = new window.google.maps.Map(document.getElementById('map'), {
             center: markerPosition,
-            zoom: 13,
+            zoom: 18,
             mapTypeControl: false,
         });
 
@@ -78,7 +79,7 @@ const GoogleMapDirection = ({ setGeoJson }) => {
             locationData.properties.name = place.name;
             locationData.properties.address = place.formatted_address;
 
-            console.log(locationData);
+            console.log(geoJson)
             setGeoJson(locationData);
         };
 
@@ -103,7 +104,7 @@ const GoogleMapDirection = ({ setGeoJson }) => {
             // update locationData
             locationData.geometry.coordinates = [newCoordinates.lat,newCoordinates.lng];
 
-            console.log(locationData)
+            console.log(geoJson)
             setGeoJson(locationData);
             });
 

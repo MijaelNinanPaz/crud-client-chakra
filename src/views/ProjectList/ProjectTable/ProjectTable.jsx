@@ -18,11 +18,11 @@ import { getCrudData } from '../../../services/getCrudData';
 const ProjectTable = ({...rest}) => {
 	// const dispatch = useDispatch();
 
-	// const { 
-	// 	loading,
-	// 	error,
-	// 	// handleCancelRequest
-	// } = useCrudFetch('Projects/list')
+	const { 
+		loading,
+		error,
+		handleCancelRequest
+	} = useCrudFetch('Projects/list')
 
 	// const { 
 	// 	loading,
@@ -30,28 +30,22 @@ const ProjectTable = ({...rest}) => {
 	// 	handleCancelRequest
 	// } = dispatch(getCrudData('Projects/list'))
 
-	useEffect(() => {
-		fetch( "http://45.79.197.74/utility-providers", {
-			method: 'POST',
-			headers: {
-				Accept: 'application/json',
-				// 'Content-Type': 'application/json',
-				// 'Authorization': `Bearer ${token}`
-			},
-			body: JSON.stringify({
-				"country": "US",
-				"state": "MA"
-			})
-		})
-		.then(response => response.json())
-		.then(data => console.log(data))
-		.catch(error => console.log(error));
-	}, [])
+	// useEffect(() => {
+	// 	fetch( "http://45.79.197.74:80/utility-providers", {
+	// 		method: 'POST',
+	// 		body: JSON.stringify({
+	// 			"country": "US",
+	// 			"state": "MA"
+	// 		})
+	// 	})
+	// 	.then(response => response.json())
+	// 	.then(data => console.log(data))
+	// 	.catch(error => console.log(error));
+	// }, [])
 	
 	
 	const projects = useSelector( state => state.projects.list );
-
-	console.log(projects)
+	const groupedProjects = projects.slice(0, 5)
 
 	return (
 		<TableContainer
@@ -74,21 +68,13 @@ const ProjectTable = ({...rest}) => {
 				</Tr>
 				</Thead>
 				<Tbody>
-				<Tr>
-					<Td>inches</Td>
-					<Td>millimetres (mm)</Td>
-					<Td isNumeric>25.4</Td>
-				</Tr>
-				<Tr>
-					<Td>feet</Td>
-					<Td>centimetres (cm)</Td>
-					<Td isNumeric>30.48</Td>
-				</Tr>
-				<Tr>
-					<Td>yards</Td>
-					<Td>metres (m)</Td>
-					<Td isNumeric>0.91444</Td>
-				</Tr>
+				{groupedProjects.length > 0 && groupedProjects.map(project => (
+					<Tr key={project.id}>
+						<Td>{project.projectName}</Td>
+						<Td>`${project.location.address} ${project.location.city} ${project.location.state}`</Td>
+						<Td>{project.dateCreated}</Td>
+					</Tr>
+				))}
 				</Tbody>
 				<Tfoot>
 				<Tr>

@@ -1,7 +1,7 @@
-import { getServicesUrl } from "../api/getServicesUrl";
+import { getServicesUrl } from "./api/getServicesUrl";
 import { addProject } from "../state/redux/projects/projectSlice";
 
-const fetchUtilityProviders = (setPostStatus, postStatus) => (dispatch) => {
+const fetchUtilityProviders = (src, setPostStatus, postStatus) => (dispatch) => {
     
     const abortController = new AbortController();
 
@@ -11,7 +11,7 @@ const fetchUtilityProviders = (setPostStatus, postStatus) => (dispatch) => {
         controller: abortController
     })
 
-    fetch( getServicesUrl(), {
+    fetch( getServicesUrl(src), {
         method: 'POST',
         signal: abortController.signal,
         headers: {
@@ -25,7 +25,7 @@ const fetchUtilityProviders = (setPostStatus, postStatus) => (dispatch) => {
         })
     })
         .then( response => response.json())
-        .then( data => dispatch(addProject(data)))
+        .then( data => dispatch(setUti(data)))
         .catch( error => {
             if(error.name === "AbortError") {
                 console.log("Request cancelled");

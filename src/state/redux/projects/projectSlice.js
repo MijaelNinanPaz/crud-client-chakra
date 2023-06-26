@@ -47,18 +47,3 @@ export const {
 } = projectSlice.actions
 
 export default projectSlice.reducer
-
-// //GET request
-
-// export const fetchProjects = () => (dispatch) => {
-//     fetch("http://45.79.197.74:8081/Projects/list", {
-//     method: 'GET',
-//     headers: {
-//         'Content-Type': 'application/json',
-//         'Access-Control-Allow-Origin': '*', // Reemplaza '*' con el origen correcto de tu aplicación
-//     },
-//     })
-//     .then(response => response.json())
-//     .then(data => console.log(data))
-//     .catch(error => console.log(error));
-// }
