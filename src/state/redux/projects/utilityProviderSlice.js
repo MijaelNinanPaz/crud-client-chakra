@@ -28,8 +28,10 @@ export const utilityProviderSlice = createSlice({
             for (let i = 0; i < responseLength; i++) {
                 if (response[i].electricity === true) {
                     electricity.push(response[i])
-                    // electricity.push(utilityProviderInterface(response[i]))
-                } else fossilFuel.push(response[i])
+                }
+                if (response[i].fossilFuel === true) {
+                    fossilFuel.push(response[i])
+                }
             }
             state.electricity = electricity
             state.fossilFuel = fossilFuel

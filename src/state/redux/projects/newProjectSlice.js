@@ -51,11 +51,11 @@ export const newProjectSlice = createSlice({
 })
 
 export const {
-    setProjectName,
-    setLocation,
-    setUtilityProviders,
-    setDesignConditions,
-    setDwellingInfo
+    setNewProjectProjectName,
+    setNewProjectLocation,
+    setNewProjectUtilityProviders,
+    setNewProjectDesignConditions,
+    setNewProjectDwellingInfo
 } = newProjectSlice.actions
 
 export default newProjectSlice.reducer

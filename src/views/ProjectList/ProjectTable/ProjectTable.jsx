@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
 	Table,
 	TableCaption,
@@ -11,39 +11,17 @@ import {
 	Tr,
 	useColorModeValue
 } from '@chakra-ui/react';
-import { useCrudFetch } from '../../../services/hooks';
-import { useDispatch, useSelector } from 'react-redux';
-import { getCrudData } from '../../../services/getCrudData';
+import { useFetchProjects } from '../../../services/hooks';
+import { useSelector } from 'react-redux';
+
 
 const ProjectTable = ({...rest}) => {
-	// const dispatch = useDispatch();
-
 	const { 
 		loading,
 		error,
 		handleCancelRequest
-	} = useCrudFetch('Projects/list')
+	} = useFetchProjects()
 
-	// const { 
-	// 	loading,
-	// 	errorGet,
-	// 	handleCancelRequest
-	// } = dispatch(getCrudData('Projects/list'))
-
-	// useEffect(() => {
-	// 	fetch( "http://45.79.197.74:80/utility-providers", {
-	// 		method: 'POST',
-	// 		body: JSON.stringify({
-	// 			"country": "US",
-	// 			"state": "MA"
-	// 		})
-	// 	})
-	// 	.then(response => response.json())
-	// 	.then(data => console.log(data))
-	// 	.catch(error => console.log(error));
-	// }, [])
-	
-	
 	const projects = useSelector( state => state.projects.list );
 	const groupedProjects = projects.slice(0, 5)
 

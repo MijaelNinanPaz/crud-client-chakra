@@ -77,7 +77,6 @@ export default function Body({ children }) {
 }
 
 
-
 const SidebarContent = ({ onClose, ...rest }) => {
 	const dispatch = useDispatch();
 

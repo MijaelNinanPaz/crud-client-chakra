@@ -79,7 +79,7 @@ const GoogleMapDirection = () => {
             locationData.properties.name = place.name;
             locationData.properties.address = place.formatted_address;
 
-            console.log(geoJson)
+            console.log(locationData)
             setGeoJson(locationData);
         };
 
@@ -90,6 +90,7 @@ const GoogleMapDirection = () => {
             const place = autocomplete.getPlace();
 
             updateLocationData(place);
+            console.log(place)
         });
 
         //Evento cuando el marcador se mueve
@@ -104,7 +105,7 @@ const GoogleMapDirection = () => {
             // update locationData
             locationData.geometry.coordinates = [newCoordinates.lat,newCoordinates.lng];
 
-            console.log(geoJson)
+            console.log(locationData)
             setGeoJson(locationData);
             });
 

@@ -1,11 +1,37 @@
 import { Box, Button, FormControl, FormLabel, Input, Select, VStack } from '@chakra-ui/react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import fetchUtilityProviders from '../../../../services/fetchUtilityProviders';
+import { getServicesUrl } from '../../../../services/api/getServicesUrl';
+import { setUtilityProviders } from '../../../../state/redux/projects/utilityProviderSlice';
 
 const UtilityProviders = () => {
+	const [projectName, setProjectName] = useState('')
+	const [utilityProviderSelected, setUtilityProviderSelected] = useState({
+		electricity: '',
+		fossilFuel: ''
+	})
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(fetchUtilityProviders());
+	}, [])
+
+	const { electricity, fossilFuel } = useSelector(state => state.utilityProviders)
+
+	// console.log(electricity);
+	// console.log(fossilFuel);
+
+	const handleChange = (event) => {
+		setUtilityProviderSelected({
+			...utilityProviderSelected,
+			[event.target.name]: event.target.value
+		})
+	}
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		console.log('Form submitted');
+		console.log(projectName, utilityProviderSelected);
 	};
 
 	return (
@@ -14,23 +40,40 @@ const UtilityProviders = () => {
 				<VStack spacing={4} align="start">
 				<FormControl>
 					<FormLabel>Project Name</FormLabel>
-					<Input type="text" placeholder="Enter the project name" />
+					<Input
+						name="projectName"
+						type="text"
+						placeholder="Enter the project name"
+						onChange={ e => setProjectName(e.target.value)}
+						value={projectName}
+					/>
 				</FormControl>
 
 				<FormControl>
 					<FormLabel>Electric Utility Provider</FormLabel>
-					<Select placeholder="Select an option">
-					<option value="option1">Option 1</option>
-					<option value="option2">Option 2</option>
+					<Select
+						name="electricity"
+						placeholder="Select an option"
+						onChange={handleChange}
+						value={utilityProviderSelected.electricity}
+					>
+					{electricity.map(item => (
+						<option key={item.utilityProviderId} value={item.utilityProviderId}>{item.title}</option>
+					))}
 					</Select>
 				</FormControl>
 
 				<FormControl>
 					<FormLabel>Fossil Fuel Provider</FormLabel>
-					<Select placeholder="Select an option">
-					<option value="option1">Option 1</option>
-					<option value="option2">Option 2</option>
-					<option value="option3">Option 3</option>
+					<Select
+						name="fossilFuel"
+						placeholder="Select an option"
+						onChange={handleChange}
+						value={utilityProviderSelected.fossilFuel}
+					>
+					{fossilFuel.map(item => (
+						<option key={item.utilityProviderId} value={item.utilityProviderId}>{item.title}</option>
+					))}
 					</Select>
 				</FormControl>
 

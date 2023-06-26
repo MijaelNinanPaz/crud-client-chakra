@@ -1,7 +1,7 @@
 import { addProject } from "../state/redux/projects/projectSlice";
 import { getCrudUrl } from "./api/getCrudUrl";
 
-const postData = (src, data, setPostStatus, postStatus) => (dispatch) => {
+const postData = (src, data, postStatus, setPostStatus) => (dispatch) => {
     
     const abortController = new AbortController();
 

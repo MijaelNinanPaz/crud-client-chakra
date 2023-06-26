@@ -1,1 +1,1 @@
-export * from './useCrudFetch';
+export * from './useFetchProjects';

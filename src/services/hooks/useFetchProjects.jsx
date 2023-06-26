@@ -4,7 +4,7 @@ import { setProjects } from "../../state/redux/projects/projectSlice";
 import { getCrudUrl } from "../api/getCrudUrl";
 
 
-export function useCrudFetch(src) {
+export function useFetchProjects() {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
     const [controller, setController] = useState(null)
@@ -15,7 +15,7 @@ export function useCrudFetch(src) {
         const abortController = new AbortController();
         setController(abortController);
         setLoading(true);
-        fetch( getCrudUrl(src), {
+        fetch( getCrudUrl('Projects/list'), {
             method: 'GET',
             signal: abortController.signal,
             headers: {
