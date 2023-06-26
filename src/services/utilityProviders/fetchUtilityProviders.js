@@ -1,7 +1,7 @@
+import { getServicesUrl } from "../api/getServicesUrl";
 import { addProject } from "../state/redux/projects/projectSlice";
-import { getCrudUrl } from "./api/getCrudUrl";
 
-const postData = (src, data, setPostStatus, postStatus) => (dispatch) => {
+const fetchUtilityProviders = (setPostStatus, postStatus) => (dispatch) => {
     
     const abortController = new AbortController();
 
@@ -11,7 +11,7 @@ const postData = (src, data, setPostStatus, postStatus) => (dispatch) => {
         controller: abortController
     })
 
-    fetch( getCrudUrl(src), {
+    fetch( getServicesUrl(), {
         method: 'POST',
         signal: abortController.signal,
         headers: {
@@ -19,7 +19,10 @@ const postData = (src, data, setPostStatus, postStatus) => (dispatch) => {
             'Content-Type': 'application/json',
             // 'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify({
+            "country": "US",
+            "state": "MA"
+        })
     })
         .then( response => response.json())
         .then( data => dispatch(addProject(data)))
@@ -40,4 +43,4 @@ const postData = (src, data, setPostStatus, postStatus) => (dispatch) => {
     }
     return handleCancelRequest
 }
-export default postData;
+export default fetchUtilityProviders;

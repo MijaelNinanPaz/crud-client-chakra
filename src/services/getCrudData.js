@@ -1,16 +1,15 @@
-import { getUrl } from "./api/getUrl";
+import { getCrudUrl } from "./api/getCrudUrl";
 import { setProjects } from "../state/redux/projects/projectSlice";
 
-export const getData = (src) => (dispatch) => {
+export const getCrudData = (src) => (dispatch) => {
     let loading = true
     let errorGet = null
     const abortController = new AbortController();
 
-    fetch( getUrl(src), {
+    fetch( getCrudUrl(src), {
         method: 'GET',
         signal: abortController.signal,
         headers: {
-            Accept: 'application/json',
             // 'accept': 'application/json',
             'Content-Type': 'application/json',
             // 'Authorization': `Bearer ${token}`

@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setProjects } from "../../state/redux/projects/projectSlice";
-import { getUrl } from "../api/getUrl";
+import { getCrudUrl } from "../api/getCrudUrl";
 
 
-export function useFetch(src) {
+export function useCrudFetch(src) {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
     const [controller, setController] = useState(null)
@@ -15,7 +15,7 @@ export function useFetch(src) {
         const abortController = new AbortController();
         setController(abortController);
         setLoading(true);
-        fetch( getUrl(src), {
+        fetch( getCrudUrl(src), {
             method: 'GET',
             signal: abortController.signal,
             headers: {
