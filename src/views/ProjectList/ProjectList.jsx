@@ -10,8 +10,11 @@ import {
 	InputRightElement,
 	useColorModeValue } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
+import { useDispatch } from 'react-redux';
+import { setViewToRender } from '../../state/redux/viewsConfig/viewSwitcherSlice';
 
 const ProjectList = () => {
+	const dispatch = useDispatch();
 	return (
 		<Grid
 			templateRows='repeat(11, 1fr)'
@@ -40,6 +43,7 @@ const ProjectList = () => {
 						variant='cool6'
 						borderRadius='50px'
 						w={{ base: '30%', md: "10vw" }}
+						onClick={()=>dispatch(setViewToRender('Location'))}
 					>Add new +</Button>
 				</HStack>
 			</GridItem>

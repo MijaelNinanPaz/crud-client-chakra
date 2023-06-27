@@ -3,6 +3,7 @@ import viewSwitcherReducer from "./viewsConfig/viewSwitcherSlice";
 import projectReducer from "./projects/projectSlice";
 import newProjectReducer from "./projects/newProjectSlice";
 import utilityProviderReducer from "./projects/utilityProviderSlice";
+import weatherStationReducer from "./projects/weatherStationSlice";
 
 
 export const store = configureStore({
@@ -11,5 +12,6 @@ export const store = configureStore({
         projects: projectReducer,
         newProject: newProjectReducer,
         utilityProviders: utilityProviderReducer,
+        weatherStations: weatherStationReducer,
     }
 })

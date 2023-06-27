@@ -35,12 +35,12 @@ import {
 	FiSun,
 } from 'react-icons/fi';
 import { setViewToRender } from '../../state/redux/viewsConfig/viewSwitcherSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const LinkItems = [
 	{ name: 'Project List', icon: FiHome, view: 'ProjectList'},
-	{ name: 'Project', icon: FiTrendingUp, view: 'ProjectList'},
+	{ name: 'Project', icon: FiTrendingUp, view: ''},
 	{ name: 'Location', icon: FiCompass, view: 'Location'},
 	{ name: 'Design Conditions', icon: FiStar, view: 'DesignConditions'},
 	{ name: 'Dwelling Info', icon: FiSettings, view: 'DwellingInfo'},
@@ -79,6 +79,7 @@ export default function Layout({ children }) {
 
 const SidebarContent = ({ onClose, ...rest }) => {
 	const dispatch = useDispatch();
+	const viewToRender = useSelector( state => state.viewSwitcher.viewToRender)
 
 	return (
 		<Box
@@ -102,7 +103,13 @@ const SidebarContent = ({ onClose, ...rest }) => {
 				<CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
 			</Flex>
 			{LinkItems.map((link) => (
-				<NavItem key={link.name} icon={link.icon} view={link.view} dispatch={dispatch}>
+				<NavItem
+					key={link.name}
+					icon={link.icon}
+					view={link.view}
+					dispatch={dispatch}
+					viewToRender={viewToRender}
+				>
 					{link.name}
 				</NavItem>
 			))}
@@ -110,7 +117,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
 	);
 };
 
-const NavItem = ({ icon, children, view, dispatch, ...rest }) => {
+const NavItem = ({ icon, children, view, dispatch, viewToRender, ...rest }) => {
 	return (
 		<Link href="#" style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
 		<Flex
@@ -120,9 +127,11 @@ const NavItem = ({ icon, children, view, dispatch, ...rest }) => {
 			borderRadius="lg"
 			role="group"
 			cursor="pointer"
+			bg={ viewToRender === view ? '#BEE3F8' : "" }
+			color={ viewToRender === view ? '#2B6CB0' : "" }
 			_hover={{
-			bg: 'cyan.400',
-			color: 'white',
+				bg: '#BEE3F8',
+				color: '#2B6CB0',
 			}}
 			onClick={()=>dispatch(setViewToRender(view))}
 			{...rest}>
@@ -131,7 +140,7 @@ const NavItem = ({ icon, children, view, dispatch, ...rest }) => {
 				mr="4"
 				fontSize="16"
 				_groupHover={{
-				color: 'white',
+					color: '#2B6CB0',
 				}}
 				as={icon}
 			/>

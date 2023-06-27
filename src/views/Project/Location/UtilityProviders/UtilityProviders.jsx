@@ -2,8 +2,7 @@ import { Box, Button, FormControl, FormLabel, Input, Select, VStack } from '@cha
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import fetchUtilityProviders from '../../../../services/fetchUtilityProviders';
-import { getServicesUrl } from '../../../../services/api/getServicesUrl';
-import { setUtilityProviders } from '../../../../state/redux/projects/utilityProviderSlice';
+import { setViewToRender } from '../../../../state/redux/viewsConfig/viewSwitcherSlice';
 
 const UtilityProviders = () => {
 	const [projectName, setProjectName] = useState('')
@@ -19,9 +18,6 @@ const UtilityProviders = () => {
 
 	const { electricity, fossilFuel } = useSelector(state => state.utilityProviders)
 
-	// console.log(electricity);
-	// console.log(fossilFuel);
-
 	const handleChange = (event) => {
 		setUtilityProviderSelected({
 			...utilityProviderSelected,
@@ -32,6 +28,7 @@ const UtilityProviders = () => {
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		console.log(projectName, utilityProviderSelected);
+		dispatch(setViewToRender('DesignConditions'))
 	};
 
 	return (
@@ -77,8 +74,7 @@ const UtilityProviders = () => {
 					</Select>
 				</FormControl>
 				<Button
-					colorScheme='blue'
-					variant="solid"
+					variant="cool6"
 					type="submit"
 					alignSelf="flex-end"
 				>
