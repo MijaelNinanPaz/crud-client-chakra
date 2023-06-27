@@ -76,8 +76,12 @@ const UtilityProviders = () => {
 					))}
 					</Select>
 				</FormControl>
-
-				<Button colorScheme="blue" type="submit" alignSelf="flex-end">
+				<Button
+					colorScheme='blue'
+					variant="solid"
+					type="submit"
+					alignSelf="flex-end"
+				>
 					{'Next >'}
 				</Button>
 				</VStack>

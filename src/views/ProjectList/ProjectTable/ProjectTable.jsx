@@ -28,7 +28,7 @@ const ProjectTable = ({...rest}) => {
 	return (
 		<TableContainer
 			display='flex'
-			width='1280px'
+			width='60vw'
 			p='12px'
 			justifyContent='center'
 			alignItems='center'

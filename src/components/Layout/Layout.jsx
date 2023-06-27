@@ -46,7 +46,7 @@ const LinkItems = [
 	{ name: 'Dwelling Info', icon: FiSettings, view: 'DwellingInfo'},
 ];
 
-export default function Body({ children }) {
+export default function Layout({ children }) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	return (
 		<Box minH="100vh" bg={useColorModeValue('cool.neutralLight', 'cool.neutralDark')}>

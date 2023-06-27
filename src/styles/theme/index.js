@@ -5,7 +5,7 @@ import { extendTheme } from '@chakra-ui/react'
 
 const colors = {
     cool: {
-        primaryLight: '#007FFF',
+        primaryLight: '#63B3ED',
         primaryDark: '#007FFF',
         secondaryLight: 'white',
         secondaryDark: '#132F4C',
@@ -32,28 +32,34 @@ const config = {
     useSystemColorMode: false, // false by default, true the color mode update automatically with user system color mode
 }
 
-// const Button = {
-//     //baseStyle: change style of all buttons
-//     baseStyle: {
-//         fontWeight: 'light',
-//         borderRadius: '30px',
-//         _hover: {
-//             boxShadow: '5px 5px 15px 5px rgba(0,0,0,0.18)',
-//         }
-//     },
+const Button = {
+    // //baseStyle: change style of all buttons
+    // baseStyle: {
+    //     fontWeight: 'light',
+    //     borderRadius: '30px',
+    //     _hover: {
+    //         boxShadow: '5px 5px 15px 5px rgba(0,0,0,0.18)',
+    //     }
+    // },
 //     // modify especific variants of buttons
-//     variants: {
-//         outline: {
-//             borderRadius: '0',
-//             textTransform: 'uppercase',
-//             fontWeight: 'light',
-//             letterSpacing: '1px',
-//             color: 'white',
-//             _hover: {
-//                 bg: 'cool.primary',
-//                 borderColor: 'cool.primary'
-//             }
-//         },
+    variants: {
+        cool6: {
+            // borderRadius:'50px',
+            // textTransform: 'uppercase',
+            fontWeight: 'light',
+            letterSpacing: '1px',
+            color: 'white',
+            bg: 'cool.primaryLight',
+            _hover: {
+                bg: 'cool.primary',
+                borderColor: 'cool.primary',
+                boxShadow: '5px 5px 15px 5px rgba(0,0,0,0.18)'
+            },
+            _active: {
+                bg: '#153e75',
+                borderColor: '#153e75'
+            }
+        },
 //         // or add new custom variant 'cool6' is possible
 //         cool6: {
 //             textTransform: 'uppercase',
@@ -67,8 +73,8 @@ const config = {
 //             },
 //             fontWeight: 'normal',
 //         }
-//     }
-// }
+    }
+}
 
 // const Heading = {
 //     variants: {
@@ -83,4 +89,4 @@ const config = {
 // //Export color and fonts, and Button and Heading as Components
 // export const theme = extendTheme({ colors, fonts, config, components: { Button, Heading } })
 
-export const theme = extendTheme({ colors, fonts, config })
+export const theme = extendTheme({ colors, fonts, config, components: { Button } })

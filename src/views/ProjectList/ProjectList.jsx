@@ -16,22 +16,20 @@ const ProjectList = () => {
 		<Grid
 			templateRows='repeat(11, 1fr)'
 			templateColumns={'repeat(5, 1fr)'}
-			alignItems='center'
+			// alignItems='center'
 			gap='1'
 			// textAlign='center'
 		>
-			<GridItem rowSpan={2} colSpan={1}>
+			<GridItem rowSpan={2} colSpan={5}>
 				<Button
-					colorScheme='blue'
-					variant='solid'
-					borderRadius='50px'
+					variant='cool6'
 				>Projects</Button>
 			</GridItem>
 			<GridItem rowSpan={1} colSpan={5}>
-				<HStack justify="space-between" width="1280px" >
+				<HStack justify={{ base: 'center', md: 'space-between'}} maxW={{base: '100%', md: '60vw'}}>
 					<InputGroup
 						bg={useColorModeValue('cool.secondaryLight', 'cool.secondaryDark')}
-						w="30rem"
+						w={{ base: '70%', md: "30vw" }}
 					>
 						<Input type='text' placeholder='Search Project' />
 						<InputRightElement pointerEvents='none'>
@@ -39,10 +37,10 @@ const ProjectList = () => {
 						</InputRightElement>
 					</InputGroup>
 					<Button
-						colorScheme='blue'
-						variant='solid'
+						variant='cool6'
 						borderRadius='50px'
-					>New</Button>
+						w={{ base: '30%', md: "10vw" }}
+					>Add new +</Button>
 				</HStack>
 			</GridItem>
 			<GridItem rowSpan={6} colSpan={5}>

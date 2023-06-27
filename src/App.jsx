@@ -1,4 +1,4 @@
-import { Body } from "./components"
+import { Layout } from "./components"
 import { ViewSwitcher } from "./views"
 
 function App() {
@@ -6,9 +6,9 @@ function App() {
 
   return (
 
-    <Body>
+    <Layout>
       <ViewSwitcher />
-    </Body>
+    </Layout>
   )
 }
 
