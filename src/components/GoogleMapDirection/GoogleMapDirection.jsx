@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './googleMapDirection.css';
 
-const GoogleMapDirection = () => {
-    const [geoJson, setGeoJson] = useState({})
+const GoogleMapDirection = ({setLocation}) => {
     const [markerPosition, setMarkerPosition] = useState({ lat: -13.516765, lng: -71.978793 });
 
     useEffect(() => {
@@ -51,6 +50,16 @@ const GoogleMapDirection = () => {
                 address: ''
             }
         };
+        // const locationData = {
+        //     city: "",
+		// 	state: "",
+		// 	address: "",
+		// 	country: "US",
+		// 	latitude: markerPosition.lat,
+		// 	asEntered: "Boston, MA, US",
+		// 	elevation: 0,
+		// 	longitude: markerPosition.lng
+        // };
 
         const updateLocationData = place => {
             if (!place.geometry || !place.geometry.location) {
@@ -80,7 +89,7 @@ const GoogleMapDirection = () => {
             locationData.properties.address = place.formatted_address;
 
             console.log(locationData)
-            setGeoJson(locationData);
+            setLocation(locationData);
         };
 
         //Evento cuando buscan y seleccionan un lugar
@@ -106,7 +115,7 @@ const GoogleMapDirection = () => {
             locationData.geometry.coordinates = [newCoordinates.lat,newCoordinates.lng];
 
             console.log(locationData)
-            setGeoJson(locationData);
+            setLocation(locationData);
             });
 
         

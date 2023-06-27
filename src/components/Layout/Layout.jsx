@@ -40,7 +40,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const LinkItems = [
 	{ name: 'Project List', icon: FiHome, view: 'ProjectList'},
-	{ name: 'Project', icon: FiTrendingUp, view: ''},
+	// { name: 'Project', icon: FiTrendingUp, view: ''},
 	{ name: 'Location', icon: FiCompass, view: 'Location'},
 	{ name: 'Design Conditions', icon: FiStar, view: 'DesignConditions'},
 	{ name: 'Dwelling Info', icon: FiSettings, view: 'DwellingInfo'},

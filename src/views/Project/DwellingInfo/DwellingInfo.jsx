@@ -15,11 +15,31 @@ const DwellingInfo = () => {
 			[event.target.name]: event.target.value
 		})
 	}
+	const handleFossilFuelChange = (name) => {
+		setDwellingInfoSelected({
+			...dwellingInfoSelected,
+			fossilFuel: name
+		})
+	}
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		console.log(dwellingInfoSelected);
-		// dispatch(setViewToRender('DesignConditions'))
+		//localStorage
+		const newProjectRecovered = JSON.parse(localStorage.getItem('newProject'));
+		let newProject;
+		if(newProjectRecovered) {
+			newProject = {
+				...newProjectRecovered,
+				dwellingInfo: dwellingInfoSelected
+			}
+		} else {
+			newProject = {
+				dwellingInfo: dwellingInfoSelected
+			}
+		}
+		console.log(newProject)
+		const newProjectString = JSON.stringify(newProject);
+		localStorage.setItem("newProject", newProjectString);
 	};
 
 	return (
@@ -67,6 +87,8 @@ const DwellingInfo = () => {
 										maxW='sm'
 										overflow='hidden'
 										cursor='pointer'
+										bg={dwellingInfoSelected.fossilFuel === 'Natural Gas' ? '#BEE3F8' : '#fff'}
+										color={dwellingInfoSelected.fossilFuel === 'Natural Gas' ? 'white' : 'black'}
 										_hover={{
 											boxShadow: '5px 5px 15px 5px rgba(0,0,0,0.18)'
 										}}
@@ -75,6 +97,7 @@ const DwellingInfo = () => {
 											bg: '#BEE3F8',
 											color: 'white'
 										}}
+										onClick={()=>handleFossilFuelChange('Natural Gas')}
 									>
 										<CardBody align='center'>
 											<Image
@@ -91,6 +114,8 @@ const DwellingInfo = () => {
 										maxW='sm'
 										overflow='hidden'
 										cursor='pointer'
+										bg={dwellingInfoSelected.fossilFuel === 'Propane' ? '#BEE3F8' : '#fff'}
+										color={dwellingInfoSelected.fossilFuel === 'Propane' ? 'white' : 'black'}
 										_hover={{
 											boxShadow: '5px 5px 15px 5px rgba(0,0,0,0.18)'
 										}}
@@ -99,6 +124,7 @@ const DwellingInfo = () => {
 											bg: '#BEE3F8',
 											color: 'white'
 										}}
+										onClick={()=>handleFossilFuelChange('Propane')}
 									>
 										<CardBody align='center'>
 											<Image
@@ -115,6 +141,8 @@ const DwellingInfo = () => {
 										maxW='sm'
 										overflow='hidden'
 										cursor='pointer'
+										bg={dwellingInfoSelected.fossilFuel === 'Heating Oil' ? '#BEE3F8' : '#fff'}
+										color={dwellingInfoSelected.fossilFuel === 'Heating Oil' ? 'white' : 'black'}
 										_hover={{
 											boxShadow: '5px 5px 15px 5px rgba(0,0,0,0.18)'
 										}}
@@ -123,6 +151,7 @@ const DwellingInfo = () => {
 											bg: '#BEE3F8',
 											color: 'white'
 										}}
+										onClick={()=>handleFossilFuelChange('Heating Oil')}
 									>
 										<CardBody align='center'>
 											<Image
@@ -139,6 +168,8 @@ const DwellingInfo = () => {
 										maxW='sm'
 										overflow='hidden'
 										cursor='pointer'
+										bg={dwellingInfoSelected.fossilFuel === 'None' ? '#BEE3F8' : '#fff'}
+										color={dwellingInfoSelected.fossilFuel === 'None' ? 'white' : 'black'}
 										_hover={{
 											boxShadow: '5px 5px 15px 5px rgba(0,0,0,0.18)'
 										}}
@@ -147,6 +178,7 @@ const DwellingInfo = () => {
 											bg: '#BEE3F8',
 											color: 'white'
 										}}
+										onClick={()=>handleFossilFuelChange('None')}
 									>
 										<CardBody align='center'>
 											<Image

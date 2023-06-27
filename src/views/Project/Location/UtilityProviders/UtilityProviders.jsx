@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import fetchUtilityProviders from '../../../../services/fetchUtilityProviders';
 import { setViewToRender } from '../../../../state/redux/viewsConfig/viewSwitcherSlice';
 
-const UtilityProviders = () => {
+const UtilityProviders = ({location}) => {
 	const [projectName, setProjectName] = useState('')
 	const [utilityProviderSelected, setUtilityProviderSelected] = useState({
 		electricity: '',
@@ -27,7 +27,27 @@ const UtilityProviders = () => {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		console.log(projectName, utilityProviderSelected);
+		//localStorage
+		const newProjectRecovered = JSON.parse(localStorage.getItem('newProject'));
+		let newProject;
+		if(newProjectRecovered) {
+			newProject = {
+				...newProjectRecovered,
+				projectName,
+				location: location,
+				utilityProviders: utilityProviderSelected
+			}
+		} else {
+			newProject = {
+				projectName,
+				location: location,
+				utilityProviders: utilityProviderSelected
+			}
+		}
+		console.log(newProject)
+		const newProjectString = JSON.stringify(newProject);
+		localStorage.setItem("newProject", newProjectString);
+
 		dispatch(setViewToRender('DesignConditions'))
 	};
 

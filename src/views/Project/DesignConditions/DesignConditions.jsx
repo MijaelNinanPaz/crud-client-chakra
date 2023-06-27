@@ -25,11 +25,30 @@ const DesignConditions = () => {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		console.log({
-			weatherStation,
-			heating99DB,
-			cooling01DB
-		});
+		//localStorage
+		const newProjectRecovered = JSON.parse(localStorage.getItem('newProject'));
+		let newProject;
+		if(newProjectRecovered) {
+			newProject = {
+				...newProjectRecovered,
+				designConditions: {
+					weatherStation,
+					heating99DB,
+					cooling01DB
+				}
+			}
+		} else {
+			newProject = {
+				designConditions: {
+					weatherStation,
+					heating99DB,
+					cooling01DB
+				}
+			}
+		}
+		console.log(newProject)
+		const newProjectString = JSON.stringify(newProject);
+		localStorage.setItem("newProject", newProjectString);
 		dispatch(setViewToRender('DwellingInfo'))
 	};
 
