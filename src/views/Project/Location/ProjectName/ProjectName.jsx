@@ -1,5 +1,5 @@
 import { Box, Card, FormControl, FormLabel, Input, Select, VStack } from '@chakra-ui/react';
-import React from 'react';
+import React, { useState } from 'react';
 
 const ProjectName = () => {
 	const [projectName, setProjectName] = useState('')
@@ -14,14 +14,10 @@ const ProjectName = () => {
 			newProject = {
 				...newProjectRecovered,
 				projectName,
-				location: location,
-				utilityProviders: utilityProviderSelected
 			}
 		} else {
 			newProject = {
 				projectName,
-				location: location,
-				utilityProviders: utilityProviderSelected
 			}
 		}
 		console.log(newProject)

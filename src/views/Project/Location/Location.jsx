@@ -5,7 +5,7 @@ import UtilityProviders from '../UtilityProviders/UtilityProviders';
 
 const Location = () => {
 	const [location, setLocation] = useState(null);
-	
+	console.log("component", location)
 	return (
 		<Flex gap="8" direction={{ base: 'column', md: 'row' }}>
 			<GoogleMapDirection setLocation={setLocation}/>

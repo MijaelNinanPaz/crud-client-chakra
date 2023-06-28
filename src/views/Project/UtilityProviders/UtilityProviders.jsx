@@ -6,7 +6,6 @@ import { setViewToRender } from '../../../state/redux/viewsConfig/viewSwitcherSl
 
 
 const UtilityProviders = ({ location }) => {
-	console.log("utiklity", location)
 	const [projectName, setProjectName] = useState('')
 	const [utilityProviderSelected, setUtilityProviderSelected] = useState({
 		electricity: '',
@@ -15,7 +14,8 @@ const UtilityProviders = ({ location }) => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(fetchUtilityProviders(location));
+		// dispatch(fetchUtilityProviders(location));
+		console.log(location)
 	}, [location])
 
 	const { electricity, fossilFuel } = useSelector(state => state.utilityProviders)
@@ -28,7 +28,9 @@ const UtilityProviders = ({ location }) => {
 	}
 
 	const handleSubmit = (event) => {
+
 		event.preventDefault();
+
 		//localStorage
 		const newProjectRecovered = JSON.parse(localStorage.getItem('newProject'));
 		let newProject;
@@ -36,13 +38,11 @@ const UtilityProviders = ({ location }) => {
 			newProject = {
 				...newProjectRecovered,
 				projectName,
-				location: location,
 				utilityProviders: utilityProviderSelected
 			}
 		} else {
 			newProject = {
 				projectName,
-				location: location,
 				utilityProviders: utilityProviderSelected
 			}
 		}

@@ -3,12 +3,15 @@ import './googleMapDirection.css';
 import { Card, CardBody, CardHeader, Input } from '@chakra-ui/react';
 
 
-const locationData = {};
-
-const GoogleMapDirection = ({ setLocation }) => {
+const GoogleMapDirection = () => {
     const [markerPosition, setMarkerPosition] = useState({ lat: 42.42916309999999669, lng: -71.04842569999999569 });
     const [googleMap, setGoogleMap] = useState(null);
-    
+    const [currentLocation, setCurrentLocation] = useState({})
+    const [counter, setCounter] = useState(0)
+
+    const verificacion = () =>{
+        console.log("verify", currentLocation)
+    }   
 
     useEffect(() => {
 
@@ -39,9 +42,11 @@ const GoogleMapDirection = ({ setLocation }) => {
                 position: markerPosition,
                 animation: window.google.maps.Animation.DROP
             });
-            
-        
+
+            const locationData = {};
+
             const updateLocationData = place => {
+                console.log("update")
                 if (!place.geometry || !place.geometry.location) {
                     window.alert("No details available for input: '" + place.name + "'");
                     return;
@@ -119,8 +124,27 @@ const GoogleMapDirection = ({ setLocation }) => {
                 }
 
                 // location => {latitude, longitude, address, zip, city, state, county, country, elevation}
-                console.log("location", locationData);
-                setLocation(locationData);
+                console.log("update", locationData);
+
+                //update state
+                setCurrentLocation(locationData)
+
+                //localStorage
+                const newProjectRecovered = JSON.parse(localStorage.getItem('newProject'));
+                let newProject;
+                if(newProjectRecovered) {
+                    newProject = {
+                        ...newProjectRecovered,
+                        location: locationData
+                    }
+                } else {
+                    newProject = {
+                        location: locationData
+                    }
+                }
+                console.log(newProject)
+                const newProjectString = JSON.stringify(newProject);
+                localStorage.setItem("newProject", newProjectString);
 
             };
 
@@ -131,7 +155,7 @@ const GoogleMapDirection = ({ setLocation }) => {
                 const place = autocomplete.getPlace();
 
                 updateLocationData(place);
-                console.log(place)
+                console.log("place autocomplete event", place)
             });
 
             //Evento cuando el marcador se mueve
@@ -147,8 +171,28 @@ const GoogleMapDirection = ({ setLocation }) => {
                 // TODO: updateLocationData(place)
                 locationData.latitude = newCoordinates.lat;
                 locationData.longitude = newCoordinates.lng;
-                console.log(locationData)
-                setLocation(locationData)
+                console.log("dragend event",locationData)
+
+                //update state
+                setCurrentLocation(locationData)
+                setCounter(counter+1)
+
+                //localStorage
+                const newProjectRecovered = JSON.parse(localStorage.getItem('newProject'));
+                let newProject;
+                if(newProjectRecovered) {
+                    newProject = {
+                        ...newProjectRecovered,
+                        location: locationData
+                    }
+                } else {
+                    newProject = {
+                        location: locationData
+                    }
+                }
+                console.log(newProject)
+                const newProjectString = JSON.stringify(newProject);
+                localStorage.setItem("newProject", newProjectString);
             });
         };
 
@@ -182,6 +226,7 @@ const GoogleMapDirection = ({ setLocation }) => {
                     <span id="place-address"></span>
                 </div>
             </CardBody>
+            <button onClick={verificacion}>test</button>
         </Card>
             
     );
