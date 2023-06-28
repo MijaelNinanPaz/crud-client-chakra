@@ -1,29 +1,9 @@
-import { Box, Button, FormControl, FormLabel, Input, Select, VStack } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import fetchUtilityProviders from '../../../../services/fetchUtilityProviders';
-import { setViewToRender } from '../../../../state/redux/viewsConfig/viewSwitcherSlice';
+import { Box, Card, FormControl, FormLabel, Input, Select, VStack } from '@chakra-ui/react';
+import React from 'react';
 
-const UtilityProviders = ({location}) => {
+const ProjectName = () => {
 	const [projectName, setProjectName] = useState('')
-	const [utilityProviderSelected, setUtilityProviderSelected] = useState({
-		electricity: '',
-		fossilFuel: ''
-	})
-	const dispatch = useDispatch();
 
-	useEffect(() => {
-		dispatch(fetchUtilityProviders());
-	}, [])
-
-	const { electricity, fossilFuel } = useSelector(state => state.utilityProviders)
-
-	const handleChange = (event) => {
-		setUtilityProviderSelected({
-			...utilityProviderSelected,
-			[event.target.name]: event.target.value
-		})
-	}
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -53,6 +33,9 @@ const UtilityProviders = ({location}) => {
 
 	return (
 		<Box maxW="md" mx="auto" mt={8} p={4}>
+			<Card>
+
+			</Card>
 			<form onSubmit={handleSubmit}>
 				<VStack spacing={4} align="start">
 				<FormControl>
@@ -106,4 +89,4 @@ const UtilityProviders = ({location}) => {
 	);
 };
 
-export default UtilityProviders;
+export default ProjectName;
