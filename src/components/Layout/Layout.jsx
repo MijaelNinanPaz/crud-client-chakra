@@ -9,7 +9,6 @@ import {
 	VStack,
 	Icon,
 	useColorModeValue,
-	Link,
 	Drawer,
 	DrawerContent,
 	Text,
@@ -21,11 +20,14 @@ import {
 	MenuList,
 	useColorMode,
 	Image,
+	Accordion,
+	AccordionItem,
+	AccordionButton,
+	AccordionPanel,
 } from '@chakra-ui/react';
 import {
 	FiHome,
 	FiTrendingUp,
-	FiCompass,
 	FiStar,
 	FiSettings,
 	FiMenu,
@@ -38,48 +40,32 @@ import { setViewToRender } from '../../state/redux/viewsConfig/viewSwitcherSlice
 import { useDispatch, useSelector } from 'react-redux';
 
 
-const LinkItems = [
-	{ name: 'Project List', icon: FiHome, view: 'ProjectList'},
-	{ name: 'Project', icon: FiTrendingUp, view: ''},
-	{ name: 'Location', icon: FiCompass, view: 'Location'},
-	{ name: 'Utility Providers', icon: FiTrendingUp, view: 'UtilityProviders'},
-	{ name: 'Design Conditions', icon: FiStar, view: 'DesignConditions'},
-	{ name: 'Dwelling Info', icon: FiSettings, view: 'DwellingInfo'},
-];
-
-// const ProjectItems = [
-// 	{ name: 'Location', icon: FiCompass, view: 'Location'},
-// 	{ name: 'Utility Providers', icon: FiTrendingUp, view: 'UtilityProviders'},
-// 	{ name: 'Design Conditions', icon: FiStar, view: 'DesignConditions'},
-// 	{ name: 'Dwelling Info', icon: FiSettings, view: 'DwellingInfo'},
-// ]
-
 export default function Layout({ children }) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	return (
 		<Box minH="100vh" bg={useColorModeValue('cool.neutralLight', 'cool.neutralDark')}>
-		<SidebarContent
-			onClose={() => onClose}
-			display={{ base: 'none', md: 'block' }}
-		/>
-		<Drawer
-			autoFocus={false}
-			isOpen={isOpen}
-			placement="left"
-			onClose={onClose}
-			returnFocusOnClose={false}
-			onOverlayClick={onClose}
-			// size="full"
-		>
-			<DrawerContent>
-				<SidebarContent onClose={onClose} />
-			</DrawerContent>
-		</Drawer>
-		{/* mobilenav */}
-		<MobileNav onOpen={onOpen} />
-		<Box ml={{ base: 0, md: 60 }} p="4" pr="8">
-			{children}
-		</Box>
+			<SidebarContent
+				onClose={() => onClose}
+				display={{ base: 'none', md: 'block' }}
+			/>
+			<Drawer
+				autoFocus={false}
+				isOpen={isOpen}
+				placement="left"
+				onClose={onClose}
+				returnFocusOnClose={false}
+				onOverlayClick={onClose}
+				// size="full"
+			>
+				<DrawerContent>
+					<SidebarContent onClose={onClose} />
+				</DrawerContent>
+			</Drawer>
+			{/* mobilenav */}
+			<MobileNav onOpen={onOpen} />
+			<Box ml={{ base: 0, md: 60 }} p="4" pr="8">
+				{children}
+			</Box>
 		</Box>
 	);
 }
@@ -110,53 +96,187 @@ const SidebarContent = ({ onClose, ...rest }) => {
 				</Text>
 				<CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
 			</Flex>
-			{LinkItems.map((link) => (
-				<NavItem
-					key={link.name}
-					icon={link.icon}
-					view={link.view}
-					dispatch={dispatch}
-					viewToRender={viewToRender}
-				>
-					{link.name}
-				</NavItem>
-			))}
-		</Box>
-	);
-};
+			<Accordion allowToggle>
 
-const NavItem = ({ icon, children, view, dispatch, viewToRender, ...rest }) => {
-	return (
-		<Link href="#" style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
-		<Flex
-			align="center"
-			p="4"
-			mx="4"
-			borderRadius="lg"
-			role="group"
-			cursor="pointer"
-			bg={ viewToRender === view ? '#BEE3F8' : "" }
-			color={ viewToRender === view ? '#2B6CB0' : "" }
-			_hover={{
-				bg: '#BEE3F8',
-				color: '#2B6CB0',
-			}}
-			onClick={()=>dispatch(setViewToRender(view))}
-			{...rest}>
-			{icon && (
-			<Icon
-				mr="4"
-				fontSize="16"
-				_groupHover={{
-					color: '#2B6CB0',
-				}}
-				as={icon}
-			/>
-			)}
-			{children}
-		</Flex>
-		{/* the logic to accordion is here */}
-		</Link>
+				{/* Project List */}
+				<Flex
+					align="center"
+					p="4"
+					mx="4"
+					borderRadius="lg"
+					role="group"
+					cursor="pointer"
+					bg={ viewToRender === 'ProjectList' ? '#BEE3F8' : "" }
+					color={ viewToRender === 'ProjectList' ? '#2B6CB0' : "" }
+					_hover={{
+						bg: '#BEE3F8',
+						color: '#2B6CB0',
+					}}
+					onClick={()=>dispatch(setViewToRender('ProjectList'))}
+					>
+					<Icon
+						mr="4"
+						fontSize="16"
+						_groupHover={{
+							color: '#2B6CB0',
+						}}
+						as={FiHome}
+					/>
+					Project List
+				</Flex>
+				
+				{/* Project */}
+				<AccordionItem>
+					{({ isExpanded }) => (
+						<>
+							<AccordionButton
+								// as={Flex}
+								align="center"
+								p="4"
+								mx="4"
+								maxW="56"
+								borderRadius="lg"
+								role="group"
+								cursor="pointer"
+								// bg={ viewToRender === 'Project' ? '#BEE3F8' : "" }
+								// color={ viewToRender === 'Project' ? '#2B6CB0' : "" }
+								_hover={{
+									bg: '#BEE3F8',
+									color: '#2B6CB0',
+								}}
+								
+								onClick={
+									isExpanded ? null : ()=>dispatch(setViewToRender('Location'))
+									}
+								>
+								<Icon
+									mr="4"
+									fontSize="16"
+									_groupHover={{
+										color: '#2B6CB0',
+									}}
+									as={FiTrendingUp}
+								/>
+								Project
+							</AccordionButton>
+							<AccordionPanel pb={4}>
+								{/* Location */}
+								<Flex
+									align="center"
+									p="4"
+									ml="2"
+									borderRadius="lg"
+									role="group"
+									cursor="pointer"
+									bg={ viewToRender === 'Location' ? '#BEE3F8' : "" }
+									color={ viewToRender === 'Location' ? '#2B6CB0' : "" }
+									_hover={{
+										bg: '#BEE3F8',
+										color: '#2B6CB0',
+									}}
+									onClick={()=>dispatch(setViewToRender('Location'))}
+									>
+									<Icon
+										mr="4"
+										fontSize="16"
+										_groupHover={{
+											color: '#2B6CB0',
+										}}
+										as={FiHome}
+									/>
+									Location
+								</Flex>
+
+								{/* Utility Providers */}
+								<Flex
+									align="center"
+									p="4"
+									ml="2"
+									borderRadius="lg"
+									role="group"
+									cursor="pointer"
+									bg={ viewToRender === 'UtilityProviders' ? '#BEE3F8' : "" }
+									color={ viewToRender === 'UtilityProviders' ? '#2B6CB0' : "" }
+									_hover={{
+										bg: '#BEE3F8',
+										color: '#2B6CB0',
+									}}
+									onClick={()=>dispatch(setViewToRender('UtilityProviders'))}
+									>
+									<Icon
+										mr="4"
+										fontSize="16"
+										_groupHover={{
+											color: '#2B6CB0',
+										}}
+										as={FiTrendingUp}
+									/>
+									Utility Providers
+								</Flex>
+
+								{/* Design Conditions */}
+								<Flex
+									align="center"
+									p="4"
+									ml="2"
+									borderRadius="lg"
+									role="group"
+									cursor="pointer"
+									bg={ viewToRender === 'DesignConditions' ? '#BEE3F8' : "" }
+									color={ viewToRender === 'DesignConditions' ? '#2B6CB0' : "" }
+									_hover={{
+										bg: '#BEE3F8',
+										color: '#2B6CB0',
+									}}
+									onClick={()=>dispatch(setViewToRender('DesignConditions'))}
+									>
+									<Icon
+										mr="4"
+										fontSize="16"
+										_groupHover={{
+											color: '#2B6CB0',
+										}}
+										as={FiStar}
+									/>
+									Design Conditions
+								</Flex>
+
+								{/* Dwelling Info */}
+								<Flex
+									align="center"
+									p="4"
+									ml="2"
+									borderRadius="lg"
+									role="group"
+									cursor="pointer"
+									bg={ viewToRender === 'DwellingInfo' ? '#BEE3F8' : "" }
+									color={ viewToRender === 'DwellingInfo' ? '#2B6CB0' : "" }
+									_hover={{
+										bg: '#BEE3F8',
+										color: '#2B6CB0',
+									}}
+									onClick={()=>dispatch(setViewToRender('DwellingInfo'))}
+									>
+									<Icon
+										mr="4"
+										fontSize="16"
+										_groupHover={{
+											color: '#2B6CB0',
+										}}
+										as={FiSettings}
+									/>
+									Dwelling Info
+								</Flex>
+							</AccordionPanel>
+						</>
+					)}
+				</AccordionItem>
+
+				<AccordionItem>
+
+				</AccordionItem>
+			</Accordion>
+		</Box>
 	);
 };
 

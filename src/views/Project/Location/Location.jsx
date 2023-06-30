@@ -13,39 +13,45 @@ const Location = () => {
 	const dispatch = useDispatch();
 
 	const onCLickNext = () => {
-		//localStorage
-		const newProjectRecovered = JSON.parse(localStorage.getItem('newProject'));
-		let newProject;
-		if(newProjectRecovered) {
-			newProject = {
-				...newProjectRecovered,
-				projectName,
+
+		if ( location && projectName !== '' ) {
+
+			//localStorage
+			const newProjectRecovered = JSON.parse(localStorage.getItem('newProject'));
+			let newProject;
+			if(newProjectRecovered) {
+				newProject = {
+					...newProjectRecovered,
+					projectName,
+				}
+			} else {
+				newProject = {
+					projectName,
+				}
 			}
+			console.log(newProject)
+			const newProjectString = JSON.stringify(newProject);
+			localStorage.setItem("newProject", newProjectString);
+
+			//fetch to UtilityProviders by location
+			dispatch(fetchUtilityProviders({
+				country: location.country,
+				state: location.state
+			}));
+
+			//fetch to WeatherStations
+			dispatch(fetchWeatherStations({
+				latitude: location.latitude,
+				longitude: location.longitude
+			}));
+
+			console.log("fetchs by",location)
+
+			//Switch to UtilityProviders
+			dispatch(setViewToRender('UtilityProviders'))
 		} else {
-			newProject = {
-				projectName,
-			}
+			alert('Please fill in all fields')
 		}
-		console.log(newProject)
-		const newProjectString = JSON.stringify(newProject);
-		localStorage.setItem("newProject", newProjectString);
-
-		//fetch to UtilityProviders by location
-		dispatch(fetchUtilityProviders({
-			country: location.country,
-			state: location.state
-		}));
-
-		//fetch to WeatherStations
-		dispatch(fetchWeatherStations({
-			latitude: location.latitude,
-			longitude: location.longitude
-		}));
-
-		console.log("fetchs by",location)
-
-		//Switch to UtilityProviders
-		dispatch(setViewToRender('UtilityProviders'))
 	}
 	
 	return (

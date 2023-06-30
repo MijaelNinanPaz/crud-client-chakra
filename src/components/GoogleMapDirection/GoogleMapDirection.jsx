@@ -205,24 +205,23 @@ const GoogleMapDirection = ({ setLocation, children }) => {
         <Card boxShadow='0 2px 14px -1px rgba(0,0,0,0.25)'>
             <Card id="pac-card">
                 <CardHeader id="pac-container" mx="12px" pb="12px" >
+                <Flex gap="8" direction={{ base: 'column', md: 'row'}}>
                     <Input id="pac-input" type="text" placeholder="Enter a location" variant='flushed'/>
+                    { children }
+                </Flex>
+
+                    
                 </CardHeader>
             </Card>
             <CardBody>
-                <Box id="map" height="100%" width="100%" flex="1" minHeight="60vh"></Box>
-                <Box id="infowindow-content" fontWeight={'bold'}>
-                    <span id="place-name" className="title"></span>
-                    <br />
-                    <span id="place-address"></span>
-                </Box>
-            </CardBody>
-            <CardBody>
-                <Flex gap="8" direction={{ base: 'column', md: 'row'}}>
-                    { children }
-                </Flex>
+            <Box id="map" height="100%" width="100%" flex="1" minHeight="60vh"></Box>
+                    <Box id="infowindow-content" fontWeight={'bold'}>
+                        <span id="place-name" className="title"></span>
+                        <br />
+                        <span id="place-address"></span>
+                    </Box>
             </CardBody>
         </Card>
-            
     );
 };
 

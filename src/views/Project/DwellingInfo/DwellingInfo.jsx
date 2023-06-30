@@ -61,9 +61,9 @@ const DwellingInfo = () => {
 
 	return (
 		<Flex justify='center'>
-			<Card w={{ base: 'full', md: '30vw' }} boxShadow='0 2px 14px -1px rgba(0,0,0,0.25)'>
+			<Card w={{ base: 'full', md: '50vw' }} boxShadow='0 2px 14px -1px rgba(0,0,0,0.25)'>
 				<CardBody>
-					<Box maxW="md" mx="auto" mt={8} p={4}>
+					<Box mx="auto" mt={8} p={4}>
 						<form onSubmit={handleSubmit}>
 							<VStack spacing={4} align="start">
 								<FormControl>
