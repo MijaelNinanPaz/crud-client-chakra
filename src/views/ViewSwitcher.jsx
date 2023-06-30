@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { DesignConditions, DwellingInfo, Location } from "./Project";
+import { DesignConditions, DwellingInfo, Location, UtilityProviders } from "./Project";
 import { ProjectList } from "./ProjectList";
 
 const ViewSwitcher = () => {
@@ -8,6 +8,7 @@ const ViewSwitcher = () => {
     const VIEWS_LIST = {
         ProjectList: <ProjectList />,
         Location: <Location />,
+        UtilityProviders: <UtilityProviders />,
         DesignConditions: <DesignConditions />,
         DwellingInfo: <DwellingInfo />,
     }

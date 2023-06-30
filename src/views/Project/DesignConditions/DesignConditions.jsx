@@ -1,7 +1,16 @@
-import { Box, Button, Card, CardBody, Flex, FormControl, FormLabel, Input, Select, VStack } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import {
+	Box,
+	Button,
+	Card,
+	CardBody,
+	Flex,
+	FormControl,
+	FormLabel,
+	Input,
+	Select,
+	VStack } from '@chakra-ui/react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import fetchWeatherStations from '../../../services/fetchWeatherStations';
 import { setViewToRender } from '../../../state/redux/viewsConfig/viewSwitcherSlice';
 
 const DesignConditions = () => {
@@ -10,9 +19,9 @@ const DesignConditions = () => {
 	const [cooling01DB, setCooling01DB] = useState(null);
 	const dispatch = useDispatch();
 
-	useEffect(() => {
-		dispatch(fetchWeatherStations());
-	}, [])
+	// useEffect(() => {
+	// 	dispatch(fetchWeatherStations());
+	// }, [])
 
 	const { list } = useSelector(state => state.weatherStations)
 

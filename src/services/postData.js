@@ -33,8 +33,8 @@ const postData = (src, data, postStatus, setPostStatus) => (dispatch) => {
         .finally(() => setPostStatus({...postStatus, loading: false }))
 
     const handleCancelRequest = () => {
-        if(abortController){
-            abortController.abort();
+        if(postStatus.controller){
+            postStatus.controller.abort();
             setPostStatus({...postStatus, error: "Request cancelled" });
         }
     }

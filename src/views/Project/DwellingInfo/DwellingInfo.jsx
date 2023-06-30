@@ -1,5 +1,8 @@
-import { Box, Button, Card, CardBody, Flex, FormControl, FormLabel, HStack, Heading, Image, Input, Select, Stack, VStack } from '@chakra-ui/react';
+import { Box, Button, Card, CardBody, Flex, FormControl, FormLabel, Heading, Image, Input, Select, Stack, VStack } from '@chakra-ui/react';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import postProject from '../../../services/crudServices/postProject';
+import { setViewToRender } from '../../../state/redux/viewsConfig/viewSwitcherSlice';
 
 const DwellingInfo = () => {
 	const [dwellingInfoSelected, setDwellingInfoSelected] = useState({
@@ -7,6 +10,10 @@ const DwellingInfo = () => {
 		nrFloors: null,
 		nrRooms: null,
 		fossilFuel: ''
+	})
+	const [postStatus, setPostStatus] = useState({
+		loading: false,
+		error: null
 	})
 
 	const handleChange = (event) => {
@@ -22,11 +29,15 @@ const DwellingInfo = () => {
 		})
 	}
 
+	const dispatch = useDispatch();
+
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		//localStorage
+
+		//recovering from localStorage
 		const newProjectRecovered = JSON.parse(localStorage.getItem('newProject'));
 		let newProject;
+
 		if(newProjectRecovered) {
 			newProject = {
 				...newProjectRecovered,
@@ -37,9 +48,15 @@ const DwellingInfo = () => {
 				dwellingInfo: dwellingInfoSelected
 			}
 		}
-		console.log(newProject)
+
 		const newProjectString = JSON.stringify(newProject);
 		localStorage.setItem("newProject", newProjectString);
+		
+		//post newProject
+		dispatch(postProject(newProject, postStatus, setPostStatus));
+
+		//switch to ProjectList
+		dispatch(setViewToRender('ProjectList'));
 	};
 
 	return (
@@ -196,6 +213,8 @@ const DwellingInfo = () => {
 									variant="cool6"
 									type="submit"
 									alignSelf="flex-end"
+									isLoading={postStatus.loading}
+									// loadingText='Submitting'
 								>
 									{'Next >'}
 								</Button>

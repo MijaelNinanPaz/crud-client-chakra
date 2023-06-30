@@ -40,11 +40,19 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const LinkItems = [
 	{ name: 'Project List', icon: FiHome, view: 'ProjectList'},
-	// { name: 'Project', icon: FiTrendingUp, view: ''},
+	{ name: 'Project', icon: FiTrendingUp, view: ''},
 	{ name: 'Location', icon: FiCompass, view: 'Location'},
+	{ name: 'Utility Providers', icon: FiTrendingUp, view: 'UtilityProviders'},
 	{ name: 'Design Conditions', icon: FiStar, view: 'DesignConditions'},
 	{ name: 'Dwelling Info', icon: FiSettings, view: 'DwellingInfo'},
 ];
+
+// const ProjectItems = [
+// 	{ name: 'Location', icon: FiCompass, view: 'Location'},
+// 	{ name: 'Utility Providers', icon: FiTrendingUp, view: 'UtilityProviders'},
+// 	{ name: 'Design Conditions', icon: FiStar, view: 'DesignConditions'},
+// 	{ name: 'Dwelling Info', icon: FiSettings, view: 'DwellingInfo'},
+// ]
 
 export default function Layout({ children }) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -147,6 +155,7 @@ const NavItem = ({ icon, children, view, dispatch, viewToRender, ...rest }) => {
 			)}
 			{children}
 		</Flex>
+		{/* the logic to accordion is here */}
 		</Link>
 	);
 };

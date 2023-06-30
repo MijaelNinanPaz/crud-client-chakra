@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import './googleMapDirection.css';
-import { Card, CardBody, CardHeader, Input } from '@chakra-ui/react';
+import { Box, Card, CardBody, CardHeader, Flex, Input } from '@chakra-ui/react';
 
 
-const GoogleMapDirection = () => {
+const GoogleMapDirection = ({ setLocation, children }) => {
     const [markerPosition, setMarkerPosition] = useState({ lat: 42.42916309999999669, lng: -71.04842569999999569 });
     const [googleMap, setGoogleMap] = useState(null);
-    const [currentLocation, setCurrentLocation] = useState({})
-    const [counter, setCounter] = useState(0)
 
-    const verificacion = () =>{
-        console.log("verify", currentLocation)
-    }   
 
     useEffect(() => {
 
@@ -46,7 +40,6 @@ const GoogleMapDirection = () => {
             const locationData = {};
 
             const updateLocationData = place => {
-                console.log("update")
                 if (!place.geometry || !place.geometry.location) {
                     window.alert("No details available for input: '" + place.name + "'");
                     return;
@@ -123,11 +116,10 @@ const GoogleMapDirection = () => {
                     alert("Sorry, latitude and longitude are required.");
                 }
 
-                // location => {latitude, longitude, address, zip, city, state, county, country, elevation}
                 console.log("update", locationData);
 
                 //update state
-                setCurrentLocation(locationData)
+                setLocation(locationData);
 
                 //localStorage
                 const newProjectRecovered = JSON.parse(localStorage.getItem('newProject'));
@@ -168,14 +160,12 @@ const GoogleMapDirection = () => {
                 setMarkerPosition(newCoordinates); // Actualiza markerPosition
 
                 // update locationData
-                // TODO: updateLocationData(place)
                 locationData.latitude = newCoordinates.lat;
                 locationData.longitude = newCoordinates.lng;
                 console.log("dragend event",locationData)
 
                 //update state
-                setCurrentLocation(locationData)
-                setCounter(counter+1)
+                setLocation(locationData);
 
                 //localStorage
                 const newProjectRecovered = JSON.parse(localStorage.getItem('newProject'));
@@ -197,7 +187,6 @@ const GoogleMapDirection = () => {
         };
 
         // Cargar el script de la API de Google Maps
-
         if (!googleMap) {
             const gmpsKey = import.meta.env.VITE_GMPS_KEY;
             const script = document.createElement('script');
@@ -211,22 +200,27 @@ const GoogleMapDirection = () => {
 
     }, []);
 
+
     return (
         <Card boxShadow='0 2px 14px -1px rgba(0,0,0,0.25)'>
             <Card id="pac-card">
                 <CardHeader id="pac-container" mx="12px" pb="12px" >
-                    <Input id="pac-input" type="text" placeholder="Enter a location" borderColor='cool.primaryLight' variant='flushed'/>
+                    <Input id="pac-input" type="text" placeholder="Enter a location" variant='flushed'/>
                 </CardHeader>
             </Card>
             <CardBody>
-                <div id="map"></div>
-                <div id="infowindow-content">
+                <Box id="map" height="100%" width="100%" flex="1" minHeight="60vh"></Box>
+                <Box id="infowindow-content" fontWeight={'bold'}>
                     <span id="place-name" className="title"></span>
                     <br />
                     <span id="place-address"></span>
-                </div>
+                </Box>
             </CardBody>
-            <button onClick={verificacion}>test</button>
+            <CardBody>
+                <Flex gap="8" direction={{ base: 'column', md: 'row'}}>
+                    { children }
+                </Flex>
+            </CardBody>
         </Card>
             
     );

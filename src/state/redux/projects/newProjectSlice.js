@@ -5,16 +5,7 @@ export const newProjectSlice = createSlice({
     name: 'newProject',
     initialState: {
         projectName: "Nice house in MA",
-        location: {
-            "city": "Boston",
-            "state": "MA",
-            "country": "US",
-            "asEntered": "Boston, MA, US",
-            "address": "Boston, MA, US",
-            "latitude": 42.3600825,
-            "longitude": -71.0588801,
-            "elevation": 0
-        },
+        location: {},
         utilityProviders: {
             "electricUtilityId": 1,
             "fossilFuelUtilityId": 2

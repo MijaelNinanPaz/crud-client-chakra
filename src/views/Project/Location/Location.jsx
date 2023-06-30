@@ -1,21 +1,72 @@
-import { Card, CardBody, Flex } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import { Button, Input } from '@chakra-ui/react';
+import { useState } from 'react';
 import { GoogleMapDirection } from '../../../components';
-import UtilityProviders from '../UtilityProviders/UtilityProviders';
+import { useDispatch } from 'react-redux';
+import { setViewToRender } from '../../../state/redux/viewsConfig/viewSwitcherSlice';
+import fetchUtilityProviders from '../../../services/fetchUtilityProviders';
+import fetchWeatherStations from '../../../services/fetchWeatherStations';
+
 
 const Location = () => {
 	const [location, setLocation] = useState(null);
-	console.log("component", location)
+	const [projectName, setProjectName] = useState('')
+	const dispatch = useDispatch();
+
+	const onCLickNext = () => {
+		//localStorage
+		const newProjectRecovered = JSON.parse(localStorage.getItem('newProject'));
+		let newProject;
+		if(newProjectRecovered) {
+			newProject = {
+				...newProjectRecovered,
+				projectName,
+			}
+		} else {
+			newProject = {
+				projectName,
+			}
+		}
+		console.log(newProject)
+		const newProjectString = JSON.stringify(newProject);
+		localStorage.setItem("newProject", newProjectString);
+
+		//fetch to UtilityProviders by location
+		dispatch(fetchUtilityProviders({
+			country: location.country,
+			state: location.state
+		}));
+
+		//fetch to WeatherStations
+		dispatch(fetchWeatherStations({
+			latitude: location.latitude,
+			longitude: location.longitude
+		}));
+
+		console.log("fetchs by",location)
+
+		//Switch to UtilityProviders
+		dispatch(setViewToRender('UtilityProviders'))
+	}
+	
 	return (
-		<Flex gap="8" direction={{ base: 'column', md: 'row' }}>
-			<GoogleMapDirection setLocation={setLocation}/>
-			<Card w={{ base: 'full', md: '22vw' }} boxShadow='0 2px 14px -1px rgba(0,0,0,0.25)'>
-				<CardBody>
-					<UtilityProviders location={location}/>
-				</CardBody>
-			</Card>
-		</Flex>
-		
+		<GoogleMapDirection setLocation={setLocation}>
+			<Input
+				name="projectName"
+				type="text"
+				placeholder="Enter the project name"
+				variant='flushed'
+				onChange={ e => setProjectName(e.target.value)}
+				value={projectName}
+			/>
+			<Button
+				variant="cool6"
+				alignSelf="flex-end"
+				w={{ base: '30%', md: "10vw" }}
+				onClick={onCLickNext}
+			>
+				{'Next >'}
+			</Button>
+		</GoogleMapDirection>
 	);
 };
 
